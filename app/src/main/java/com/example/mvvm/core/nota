@@ -1,0 +1,5 @@
+el core, que será el encargado de almacenar clases genéricas como por ejemplo las funciones de extensión.
+Y dentro de este directorio añadiremos un objeto llamado RetrofitHelper.
+
+Las funciones de extensión nos permiten crear nuevas funciones a partir de un tipo de clase, como por ejemplo una String.
+ La gracia de esto es que evitamos tener que tocar dichas clases y atomizar las funciones para que realicen una única acción.

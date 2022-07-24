@@ -1,4 +1,6 @@
-package com.example.mvvm.model
+package com.example.mvvm.data.model
+
+import com.google.gson.annotations.SerializedName
 
 //data va adelante por que es un modeo de datos y recibe dos parametros
 /*
@@ -7,7 +9,11 @@ no lleva llaves y la clase va precedida por «data». Esto le dice a Kotlin que 
 tener por defecto una serie de funciones (aunque no vamos a tener que generarlas nosotros, lo
 hará el propio lenguaje por detrás) que podremos usar para rellenar dichos campos.
  */
-data class QuoteModel(val quote:String, val author:String) {
+/*
+El modelo de datos será igual que el actual (QuoteModel), pero podemos ponerle el atributo @SerializedName si el nombre puede cambiar.
+ */
+data class QuoteModel(@SerializedName("quote") val quote: String,
+                      @SerializedName("author") val author: String) {
 
 
 

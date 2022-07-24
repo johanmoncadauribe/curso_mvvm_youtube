@@ -1,11 +1,11 @@
-package com.example.mvvm.view
+package com.example.mvvm.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.mvvm.databinding.ActivityMainBinding
-import com.example.mvvm.viewModel.QuoteViewModel
+import com.example.mvvm.ui.viewModel.QuoteViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,11 +21,14 @@ class MainActivity : AppCompatActivity() {
     /*
     url del curso con explicacion
     https://cursokotlin.com/mvvm-en-android-con-kotlin-livedata-y-view-binding-android-architecture-components/
+    orden capitulos: #35 - #38 -
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        quoteViewModel.onCreate()
+
         observes()
         eventoOnclic()
     }

@@ -1,16 +1,43 @@
-package com.example.mvvm.viewModel
+package com.example.mvvm.ui.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mvvm.model.QuoteModel
-import com.example.mvvm.model.QuoteProvider
+import androidx.lifecycle.viewModelScope
+import com.example.mvvm.data.model.QuoteModel
+import com.example.mvvm.data.model.QuoteProvider
+import com.example.mvvm.domain.GetQuotesUseCase
+import kotlinx.coroutines.launch
 
 /*
     Se convierte la clase a viewmodel, es decir, se extienda la clas ViewModel y ya.
  */
 
 class QuoteViewModel : ViewModel(){
+
+    var getQuotesUseCase = GetQuotesUseCase()
+
+    /*
+    Ahora si podríamos llamarlo en nuestra función onCreate()
+    pero si recuerdas, nuestro caso de uso es suspend ya que se
+    trata de una corrutina así que para poder lanzarlo desde aquí
+    tendremos que usar ViewModelScope
+
+
+     */
+    fun onCreate() {
+        /*
+        ViewModelScope permite crear una corrotina que se controla automaticamente, es decir, en debido caso que se deba detener
+        lo hara solita, evitando que la app se crashee
+         */
+        viewModelScope.launch {
+            val result = getQuotesUseCase()
+            if(!result.isNullOrEmpty()){
+                _quoteModel.postValue(result[0])
+            }
+        }
+
+    }
 
     /*
     Luego estamos implementando LiveData, que no es más que un tipo de datos al cual nuestra activity se puede conectar para saber cuando hay un
@@ -31,8 +58,10 @@ class QuoteViewModel : ViewModel(){
     con postValue(). Y como nuestro objeto ha sido modificado la actividad lo sabrá al momento y pintará los cambios.
      */
     fun randomQuote(){
-        val currentQuote = QuoteProvider.random()
-        _quoteModel.postValue(currentQuote) //se cambia el valor y se le agrega el nuevo (currentQuote)
+//        val currentQuote = QuoteProvider.random()
+//        _quoteModel.postValue(currentQuote) //se cambia el valor y se le agrega el nuevo (currentQuote)
     }
+
+
 
 }

@@ -1,0 +1,5 @@
+Llegamos al dominio, donde se almacena la lógica de negocio accederemos a este repositorio gracias
+a los casos de uso o interactor. Se tratan de clases que gestionan una única acción por ejemplo un
+caso de uso sería recuperar todas las citas y otro caso de uso sería recuperar una única aleatoria.
+
+Dentro del directorio domain crearemos una clase llamada GetQuotesUseCase().
