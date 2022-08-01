@@ -8,13 +8,21 @@ import com.example.mvvm.data.model.QuoteModel
 import com.example.mvvm.data.model.QuoteProvider
 import com.example.mvvm.domain.GetQuotesUseCase
 import com.example.mvvm.domain.GetRandomQuoteUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /*
     Se convierte la clase a viewmodel, es decir, se extienda la clas ViewModel y ya.
+    Es tan sencillo como añadirle la etiqueta @Inject y definir una variable lateinit
+    con la clase a inyectar. Eso sí, nunca pueden ser privadas.
  */
+@HiltViewModel
+class QuoteViewModel @Inject constructor(
+    private val getQuotesUseCase:GetQuotesUseCase,
+    private val getRandomQuoteUseCase:GetRandomQuoteUseCase
 
-class QuoteViewModel : ViewModel(){
+): ViewModel(){
 
     /*
     Luego estamos implementando LiveData, que no es más que un tipo de datos al cual nuestra activity se puede conectar para saber cuando hay un
@@ -32,9 +40,6 @@ class QuoteViewModel : ViewModel(){
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
         get() = _isLoading
-
-    private var getQuotesUseCase = GetQuotesUseCase()
-    private var getRandomQuoteUseCase = GetRandomQuoteUseCase()
 
     /*
     Ahora si podríamos llamarlo en nuestra función onCreate()

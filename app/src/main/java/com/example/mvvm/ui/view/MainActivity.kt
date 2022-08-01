@@ -7,7 +7,14 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.example.mvvm.databinding.ActivityMainBinding
 import com.example.mvvm.ui.viewModel.QuoteViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+/*
+El primer paso será preparar las activities y es tan sencillo como poner en
+la parte superior una etiqueta. Vamos a nuestra MainActivity y lo marcamos como entry point.
+Con esto ya tendríamos preparada la activity y podríamos inyectarle dependencias (previamente preparadas)
+ */
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
