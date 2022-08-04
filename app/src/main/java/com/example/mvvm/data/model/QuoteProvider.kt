@@ -1,5 +1,8 @@
 package com.example.mvvm.data.model
 
+import javax.inject.Inject
+import javax.inject.Singleton
+
 /* clase propia provider momentanea para simular una respuesta a una solicitud
     va a devolver las citas de forma ramdon.
     ¿Qué es un content provider en Android?
@@ -8,7 +11,8 @@ package com.example.mvvm.data.model
     eventualmente llaman a ContentResolver , que luego llama a un método concreto de ContentProvider
     para obtener acceso
  */
-class QuoteProvider {
+@Singleton
+class QuoteProvider @Inject constructor() {
 
 
     /*
@@ -17,7 +21,6 @@ class QuoteProvider {
         sin la creación previa de una instancia de dicha clase. Se podría decir que es el equivalente a los miembros
         estáticos de Java, solo que en Kotlin no existe la palabra static
      */
-    companion object {
-        var quotes:List<QuoteModel> = emptyList()
-    }
+    var quotes:List<QuoteModel> = emptyList()
+
 }

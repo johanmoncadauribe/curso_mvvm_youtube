@@ -4,6 +4,7 @@ import com.example.mvvm.core.RetrofitHelper
 import com.example.mvvm.data.model.QuoteModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
 /*
@@ -11,7 +12,9 @@ import kotlinx.coroutines.withContext
     llame nuestro repositorio (cuando lo creemos) cuando queramos datos de internet
     y esta clase ya gestionaría la llamada a Retrofit o a Firebase por ejemplo.
  */
-class QuoteService {
+class QuoteService @Inject constructor(
+    private val api: QuoteApiClient
+){
 
     /*
     Para empezar tenemos una instancia de nuestro RetrofitHelper y luego tenemos una función que llamará a
@@ -21,10 +24,10 @@ Con esta clase conseguimos abstraer la parte de Retrofit al máximo, es decir, s
 endpoints solo deberemos tocar esta clase y el resto de nuestra app quedará intacta.
 Por decirlo de algún modo, esta clase será la puerta de acceso a internet y dicha puerta será llamada por el repositorio
      */
-    private val retrofit = RetrofitHelper.getRetrofit()
+
     suspend fun getQuotes(): List<QuoteModel> {
         return withContext(Dispatchers.IO) {
-            val response = retrofit.create(QuoteApiClient::class.java).getAllQuotes()
+            val response = api.getAllQuotes()
             response.body() ?: emptyList()
         }
     }

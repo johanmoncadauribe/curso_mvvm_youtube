@@ -5,16 +5,16 @@ import com.example.mvvm.data.model.QuoteModel
 import com.example.mvvm.data.model.QuoteProvider
 import javax.inject.Inject
 
-class GetRandomQuoteUseCase @Inject constructor() {
+class GetRandomQuoteUseCase @Inject constructor(
+    private val quoteProvider: QuoteProvider
+) {
 
-    private val repository = QuoteRepository()
 
     /*
     no utilizamos corrutinas por que la info ya se encuentra almacenada en memoria.
-
      */
     operator fun invoke():QuoteModel?{
-        val quotes = QuoteProvider.quotes
+        val quotes = quoteProvider.quotes
         if(!quotes.isNullOrEmpty()){
             val randomNumber = (quotes.indices).random()
             return quotes[randomNumber]
